@@ -21,10 +21,11 @@ we need to remove the product in `Releases` .
 # Install
 - download the trial from official, download the build from this release
 - install trial
-- run script to replace partial folders in trial with the release, using script ( or manuualy ) \
+- run script to replace partial folders in trial with the release, using script ( or manuualy ) 
     ```rb
       sh "rm -rf ./Aseprite.app/Contents/MacOS/aseprite"
       sh "cp -r ./aseprite/build/bin/aseprite ./Aseprite.app/Contents/MacOS/aseprite"
       sh "rm -rf ./Aseprite.app/Contents/Resources/data"
       sh "cp -r ./aseprite/build/bin/data Aseprite.app/Contents/Resources/data"
     ```  
+  This script references to [here](https://github.com/Mark24Code/aseprite-build-and-install-on-macos/blob/main/install.rb)
