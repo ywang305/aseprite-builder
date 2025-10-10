@@ -16,3 +16,15 @@ accroding to [Eula](https://github.com/aseprite/aseprite/blob/main/EULA.txt) :
 > You may not distribute copies of the SOFTWARE PRODUCT to third parties. Evaluation versions available for download from the Licensor's websites may be freely distributed.
 
 we need to remove the product in `Releases` .
+
+
+# Install
+- download the trial from official, download the build from this release
+- install trial
+- run script to replace partial folders in trial with the release, using script ( or manuualy ) \
+    ```rb
+      sh "rm -rf ./Aseprite.app/Contents/MacOS/aseprite"
+      sh "cp -r ./aseprite/build/bin/aseprite ./Aseprite.app/Contents/MacOS/aseprite"
+      sh "rm -rf ./Aseprite.app/Contents/Resources/data"
+      sh "cp -r ./aseprite/build/bin/data Aseprite.app/Contents/Resources/data"
+    ```  
