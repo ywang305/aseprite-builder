@@ -133,6 +133,18 @@ jobs:
       - name: Make portable zip
         working-directory: aseprite/build/bin
         run: echo '# This file is here so Aseprite behaves as a portable program' > aseprite.ini
+      - name: Debug - List files in build directory
+        working-directory: aseprite/build/bin
+        shell: bash
+        run: |
+          echo "Contents of aseprite/build/bin:"
+          ls -la
+          echo ""
+          echo "Total files:"
+          find . -type f | wc -l
+          echo ""
+          echo "Directory structure:"
+          tree . || find . -type d
       - name: Create release
         working-directory: aseprite/build/bin
         run: 7z -tzip a Aseprite-${{ needs.create-release.outputs.release-tag }}-${{ runner.os }}.zip *
