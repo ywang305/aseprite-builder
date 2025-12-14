@@ -130,22 +130,28 @@ jobs:
         working-directory: aseprite/build/bin
         shell: bash
         run: find . -mindepth 1 ! \( -name 'aseprite' -o -name 'aseprite.exe' -o -name 'data' -prune \) -exec rm -rf {} +
+      - name: Debug - Check Aseprite.app location
+        working-directory:  aseprite/build/bin
+        shell: bash
+        run:  |
+          echo "Current directory:"
+          pwd
+          echo ""
+          echo "Contents of current dir:"
+          ls -la
+          echo ""
+          echo "Looking for Aseprite.app:"
+          find ..  -name "Aseprite.app" -type d 2>/dev/null
+          echo ""
+          echo "Check if it exists in parent (aseprite/build):"
+          ls -la .. 
       - name: Make portable zip
         working-directory: aseprite/build/bin
         run: |
           echo '# This file is here so Aseprite behaves as a portable program' > aseprite.ini
           # Copy actual files and overwrite symlinks
           cp ./Aseprite.app/Contents/MacOS/aseprite ./aseprite
-          cp -r ./Aseprite.app/Contents/Resources/data ./data
-      - name: Debug - List files in build directory
-        working-directory: aseprite/build/bin
-        shell: bash
-        run: |
-          echo "Contents of aseprite/build/bin:"
-          ls -la
-          echo ""
-          echo "Total files:"
-          find . -type f | wc -l
+          cp -r ./Aseprite.app/Contents/Resources/data ./data 
       - name: Create release
         working-directory: aseprite/build/bin
         run: 7z -tzip a Aseprite-${{ needs.create-release.outputs.release-tag }}-${{ runner.os }}.zip *
