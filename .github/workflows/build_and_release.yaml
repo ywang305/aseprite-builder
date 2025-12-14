@@ -25,6 +25,16 @@ jobs:
             group: aseprite
             repo: aseprite
             match: Aseprite-.*?-Source.zip
+      # ---- ADDED: print the step outputs so you can verify them ----
+      - name: Print fetched outputs
+        if: always()
+        run: |
+          echo "STEP outputs from aseprite-link:"
+          echo "download-link=${{ steps.aseprite-link.outputs.download-link }}"
+          echo "release-tag=${{ steps.aseprite-link.outputs.release-tag }}"
+          # Use GitHub workflow commands to make a visible annotation
+          echo "::notice::download-link=${{ steps.aseprite-link.outputs.download-link }}"
+          echo "::notice::release-tag=${{ steps.aseprite-link.outputs.release-tag }}"
 
   create-release:
     name: Create Release
