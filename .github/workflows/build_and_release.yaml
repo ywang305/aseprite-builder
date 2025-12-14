@@ -111,6 +111,8 @@ jobs:
             -DSKIA_DIR=$(realpath skia) \
             -DOPENSSL_USE_STATIC_LIBS=ON \
             -DSKIA_LIBRARY_DIR=$(realpath skia/out/Release-$skia_arch)
+      - name: Move executable to root
+        run: cp build/bin/aseprite . 
       - name: Compiling
         shell: bash
         working-directory: aseprite
