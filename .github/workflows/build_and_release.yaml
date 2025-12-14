@@ -126,6 +126,18 @@ jobs:
         working-directory: aseprite
         run: |
           cd build && ninja
+      - name: Debug - Check build output structure
+        working-directory:  aseprite/build/bin
+        shell: bash
+        run:  |
+          echo "Contents of aseprite/build/bin after compile:"
+          ls -la
+          echo ""
+          echo "Looking for aseprite executable anywhere in build:"
+          find ../..  -name "aseprite" -o -name "Aseprite. app" 2>/dev/null | head -20
+          echo ""
+          echo "File types:"
+          file *
       - name: Clean Up Build folder
         working-directory: aseprite/build/bin
         shell: bash
