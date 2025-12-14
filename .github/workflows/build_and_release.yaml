@@ -134,19 +134,9 @@ jobs:
         working-directory: aseprite/build/bin
         run: |
           echo '# This file is here so Aseprite behaves as a portable program' > aseprite.ini
-          # Copy actual files instead of symlinking
-          if [[ -L "aseprite" ]]; then
-            # aseprite is a symlink, follow it and copy the actual file
-            cp -L aseprite aseprite_copy
-            rm aseprite
-            mv aseprite_copy aseprite
-          fi          
-          if [[ -L "data" ]]; then
-            # data is a symlink, follow it and copy the actual directory
-            cp -rL data data_copy
-            rm -rf data
-            mv data_copy data
-          fi
+          # Copy actual files and overwrite symlinks
+          cp ./Aseprite.app/Contents/MacOS/aseprite ./aseprite
+          cp -r ./Aseprite.app/Contents/Resources/data ./data
       - name: Debug - List files in build directory
         working-directory: aseprite/build/bin
         shell: bash
