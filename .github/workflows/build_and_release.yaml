@@ -159,21 +159,6 @@ jobs:
         working-directory: aseprite/build/bin
         run: |
           echo '# This file is here so Aseprite behaves as a portable program' > aseprite.ini
-          # Ensure aseprite executable exists and is not a symlink
-          if [[ -L "aseprite" ]]; then
-            # If it's a symlink, replace it with the actual executable from Aseprite.app
-            rm aseprite
-            cp ./Aseprite.app/Contents/MacOS/aseprite ./aseprite
-            chmod +x ./aseprite
-          fi
-          
-          # Ensure data directory exists and is not a symlink
-          if [[ -L "data" ]]; then
-            rm data
-          fi
-          if [[ !  -d "data" ]]; then
-            cp -r ./Aseprite.app/Contents/Resources/data ./data
-          fi
       - name: Create release
         working-directory: aseprite/build/bin
         run: 7z -tzip a Aseprite-${{ needs.create-release.outputs.release-tag }}-${{ runner.os }}.zip *
