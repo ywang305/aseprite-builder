@@ -155,8 +155,8 @@ jobs:
           echo "Looking for Aseprite.app:"
           find ..  -name "Aseprite.app" -type d 2>/dev/null
           echo ""
-          echo "Check inside Aseprite.app dir:"
-          ls -la ./Aseprite.app 
+          echo "Check Aseprite.app in grandparent dir:"
+          ls -la ../../build/bin
       - name: Make portable zip
         working-directory: aseprite/build/bin
         run: |
