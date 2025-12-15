@@ -141,7 +141,7 @@ jobs:
       - name: Clean Up Build folder
         working-directory: aseprite/build/bin
         shell: bash
-        run: find . -mindepth 1 ! \( -name 'aseprite' -o -name 'aseprite.exe' -o -name 'data' -prune \) -exec rm -rf {} +
+        run: find . -mindepth 1 ! \( -name 'aseprite' -o -name 'aseprite.exe' -o -name 'data' -o -name 'Aseprite.app' -o -name 'icudtl.dat' -prune \) -exec rm -rf {} +
       - name: Debug - Check Aseprite.app location
         working-directory:  aseprite/build/bin
         shell: bash
