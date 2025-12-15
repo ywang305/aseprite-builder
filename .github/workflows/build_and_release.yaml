@@ -155,6 +155,9 @@ jobs:
           echo "Looking for Aseprite.app:"
           find ..  -name "Aseprite.app" -type d 2>/dev/null
           echo ""
+          echo "check for Aseprite.app/Contents"
+          ls -al Aseprite.app/Contents
+          echo ""
       - name: Make portable zip
         working-directory: aseprite/build/bin
         run: |
