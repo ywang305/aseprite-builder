@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'BuildLog.md'
+      - "BuildLog.md"
   workflow_dispatch:
 env:
   BUILD_TYPE: Release
@@ -22,9 +22,9 @@ jobs:
         id: aseprite-link
         uses: a1393323447/fetch-release@main
         with:
-            group: aseprite
-            repo: aseprite
-            match: Aseprite-.*?-Source.zip
+          group: aseprite
+          repo: aseprite
+          match: Aseprite-.*?-Source.zip
       # ---- ADDED: print the step outputs so you can verify them ----
       - name: Print fetched outputs
         if: always()
@@ -61,9 +61,9 @@ jobs:
       contents: write
     runs-on: ${{ matrix.os }}
     strategy:
-        matrix:
-          os: [ macOS-latest ]
-        fail-fast: false
+      matrix:
+        os: [macOS-latest]
+      fail-fast: false
     steps:
       - name: Install Dependencies
         if: runner.os == 'Linux'
@@ -127,9 +127,9 @@ jobs:
         run: |
           cd build && ninja
       - name: Debug - Check build output structure
-        working-directory:  aseprite/build/bin
+        working-directory: aseprite/build/bin
         shell: bash
-        run:  |
+        run: |
           echo "Contents of aseprite/build/bin after compile:"
           ls -la
           echo ""
@@ -141,11 +141,19 @@ jobs:
       - name: Clean Up Build folder
         working-directory: aseprite/build/bin
         shell: bash
-        run: find . -mindepth 1 ! \( -name 'aseprite' -o -name 'aseprite.exe' -o -name 'data' -o -name 'Aseprite.app' -o -name 'icudtl.dat' -prune \) -exec rm -rf {} +
+        run: |
+          # Keep only necessary files/folders, properly handle Aseprite.app bundle
+          find . -mindepth 1 -maxdepth 1 \
+            ! -name 'aseprite' \
+            ! -name 'aseprite.exe' \
+            ! -name 'data' \
+            ! -name 'Aseprite.app' \
+            ! -name 'icudtl.dat' \
+            -exec rm -rf {} +
       - name: Debug - Check Aseprite.app location
-        working-directory:  aseprite/build/bin
+        working-directory: aseprite/build/bin
         shell: bash
-        run:  |
+        run: |
           echo "Current directory:"
           pwd
           echo ""
